@@ -1,0 +1,104 @@
+﻿@model _7_Elephant.Models.CustomerIndexData
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h3>
+    รายชื่อลูกค้าทั้งหมด
+</h3>
+<table class="table">
+    <tr>
+        <th>Customer Name</th>
+        <th>Products</th>
+    </tr>
+    @foreach (var cus in Model.Customers)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(model => cus.CustomerName)
+            </td>
+            <td>
+                @Html.ActionLink("Select", "Index", new { email = cus.CustomerEmail })
+            </td>
+        </tr>
+    }
+</table>
+
+<br />
+<h3>
+    ประวัติการสั่งซื้อ
+</h3>
+<table class="table">
+    <tr>
+        <th>Brand</th>
+        <th>Model</th>
+        <th>Price</th>
+        <th>Cost</th>
+        <th>Orders</th>
+    </tr>
+    @if (Model.Phones != null && Model.Phones.Any())
+    {
+        foreach (var ph in Model.Phones)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(model => ph.brand)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => ph.model)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => ph.price)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => ph.cost)
+                </td>
+                <td>
+                    @Html.ActionLink("Select", "Index", new { email = ViewBag.selectedEmail, productId = ph.product_id })
+                </td>
+            </tr>
+        }
+    }
+    else
+    {
+        <tr>
+            <td colspan="5">No order history available for this customer.</td>
+        </tr>
+    }
+</table>
+
+<br />
+<h3>
+    รายละเอียดสินค้า
+</h3>
+<table class="table">
+    <tr>
+        <th>Order Id</th>
+        <th>Quantity</th>
+        <th>Total Price</th>
+        <th>Address</th>
+    </tr>
+    @if (Model.Orders != null)
+    {
+        foreach (var or in Model.Orders)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(model => or.Order_id)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => or.quantity)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => or.total)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => or.address)
+                </td>
+            </tr>
+
+        }
+    }
+</table>

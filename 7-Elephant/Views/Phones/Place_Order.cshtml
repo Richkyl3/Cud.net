@@ -1,0 +1,82 @@
+﻿@model _7_Elephant.Phone
+
+@{
+    ViewBag.Title = "Place_Order";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Place_Order</h2>
+
+@using (Html.BeginForm("AddOrder", "Orders", FormMethod.Post))
+{
+
+    <div>
+        <h4>Phone</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.brand)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.brand)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.model)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.model)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.price)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.price)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.cost)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.cost)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.url)
+            </dt>
+
+            <dd>
+                <img src="@Url.Content("~/Content/images/" + (Model.url))" style="width: 100px; height: auto" />
+            </dd>
+
+            <dt>
+                Quantity
+            </dt>
+
+            <dd>
+                <input type="text" value="1" name="quantity" class="form-control" />
+            </dd>
+
+            <dt>
+                Address
+            </dt>
+
+            <dd>
+                <textarea name="address" cols="40" rows="3" class="form-control"> </textarea>
+            </dd>
+
+        </dl>
+    </div>
+
+    @Html.HiddenFor(model => model.product_id)
+    <input type="submit" value="Place Order" class="btn btn-info pullright" />
+}
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.product_id }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>

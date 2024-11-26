@@ -1,0 +1,80 @@
+﻿@model IEnumerable<_7_Elephant.Phone>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+
+<div class="container">
+    <div class="row text-right">
+        @Html.ActionLink("เพิ่มสิ้นค้า", "Create", null, new { @class = "btn btn-success" })
+        @Html.ActionLink("เรียง", "Index", new { sortOrder = ViewBag.BrandSortParm }, new
+{ @class = "btn btn-default" })
+    </div>
+</div>
+
+
+<div class="container">
+    <div class="row text-right">
+        @using ((Html.BeginForm()))
+        {
+            @Html.TextBox("SearchString", null, new { @placeholder = "ค้นหาชื่อหรือรุ่น" })
+            <input type="submit" class="btn btn-info" value="Search" />
+        }
+    </div>
+</div>
+
+<div class="container">
+    @for (int i = 1; i <= Model.ToList().Count(); i++)
+    {
+        var indexItem = i - 1;
+
+        if (i == 1 || i % 4 == 1)
+        {
+            @:<div class="row">
+            }
+
+            <div class="col-md-3">
+
+                <div class="thumbnail">
+                    <img class="img-responsive" style="max-width: 70%;"
+                         src=@Url.Content("~/Content/images/" + (Model.ElementAt(indexItem).url)) />
+                    <div class="caption">
+                        <h3> @Model.ElementAt(indexItem).model </h3>
+                        <h5> @Model.ElementAt(indexItem).brand </h5>
+                        <h5>ราคา: @Model.ElementAt(indexItem).price </h5>
+                        <h5>ต้นทุน: @Model.ElementAt(indexItem).cost </h5>
+
+                        @Html.ActionLink("Details", "Details", new
+                        {
+                            id = @Model.ElementAt(indexItem).product_id
+                        }, new { @class = "btn btn-info" })
+
+                        @Html.ActionLink("Edit", "Edit", new { id = @Model.ElementAt(indexItem).product_id },
+                        new { @class = "btn btn-warning" })
+
+                        @Html.ActionLink("Delete", "Delete", new
+                        {
+                            id =
+                        @Model.ElementAt(indexItem).product_id
+                        }, new { @class = "btn btn-danger" })
+
+
+                    </div>
+                </div>
+
+            </div>
+
+
+            if (i % 4 == 0)
+            {
+            @:</div>
+        }
+    }
+</div>
